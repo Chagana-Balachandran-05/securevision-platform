@@ -1,5 +1,10 @@
 name: DevSecOps CI/CD Pipeline
 
+# Workflow permissions (allows creating check runs)
+permissions:
+  contents: read
+  checks: write
+
 # Triggers: run on every push and pull request to main/develop
 on:
   push:
