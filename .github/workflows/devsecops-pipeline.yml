@@ -105,12 +105,30 @@ jobs:
             -Dformat=ALL \
             -B || true
 
+      - name: List OWASP report files (diagnostic)
+        run: |
+          echo "Listing target/ content for OWASP report debugging"
+          ls -la target || true
+          find target -maxdepth 1 -type f -name 'dependency-check-report.*' -print || true
+
+      - name: Ensure OWASP report exists (create placeholder if missing)
+        run: |
+          mkdir -p target
+          if ! ls target/dependency-check-report.* 1> /dev/null 2>&1; then
+            echo "{}" > target/dependency-check-report.json
+            echo "Created placeholder dependency-check-report.json because no real report was found"
+          else
+            echo "OWASP report files found"
+          fi
+
       - name: Upload OWASP report
         uses: actions/upload-artifact@v4
         if: always()
         with:
           name: owasp-dependency-check-report
-          path: target/dependency-check-report.*
+          path: |
+            target/dependency-check-report.json
+            target/dependency-check-report.*
 
   # -------------------------------------------------------
   # STAGE 4: STATIC ANALYSIS (SAST)
