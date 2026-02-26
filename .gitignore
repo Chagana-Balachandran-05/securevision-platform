@@ -52,3 +52,25 @@ dependency-check-report.*
 
 # ONCE dataset - do not push to GitHub (too large)
 once_dataset/
+
+
+# Compiled output
+target/
+*.class
+*.jar
+*.war
+
+# IDE files
+.idea/
+.eclipse/
+*.iml
+.vscode/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Secrets / environment files
+.env
+*.key
+secrets.properties
